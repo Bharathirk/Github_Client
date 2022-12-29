@@ -66,7 +66,7 @@ class UserActivity : BaseActivity<ActivityFollowerBinding, UserNavigator>(),
                 UserAdapter.setFollwerList(response)
                 dataItemList = response.toMutableList()
                 lastUserId = dataItemList.get(dataItemList.size-1)?.id!!
-//                showToast("LastUserId"+lastUserId)
+                showToast("FetchingNewData")
 
 
             }

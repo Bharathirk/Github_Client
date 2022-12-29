@@ -16,12 +16,12 @@ class AppRepo @Inject constructor(private val appApi: AppApi) {
 
 
     fun getUsers():Flow<Response<List<FollowerResponseItem>>> = flow {
-        val response = appApi.getUsers("Bearer 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")
+        val response = appApi.getUsers("Bearer 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")
         emit(response)
     }.flowOn(Dispatchers.IO)
 
     fun getUsersPage(pos:Int):Flow<Response<List<FollowerResponseItem>>> = flow {
-        val response = appApi.getUsersPage("Bearer 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",pos)
+        val response = appApi.getUsersPage("Bearer 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",pos)
         emit(response)
     }.flowOn(Dispatchers.IO)
 

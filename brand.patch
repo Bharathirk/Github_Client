@@ -1,0 +1,235 @@
+Index: app/src/main/res/layout/fragment_branded.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_branded.xml b/app/src/main/res/layout/fragment_branded.xml
+--- a/app/src/main/res/layout/fragment_branded.xml	(revision 6e5b034e4f491d6444027228a95e5e4038fc64d2)
++++ b/app/src/main/res/layout/fragment_branded.xml	(date 1660066170342)
+@@ -24,6 +24,7 @@
+         android:background="@color/app_background">
+ 
+         <androidx.recyclerview.widget.RecyclerView
++            android:id="@+id/rv_brands"
+             android:layout_width="0dp"
+             android:layout_height="0dp"
+             android:layout_marginStart="25dp"
+Index: app/src/main/java/com/oic/virtualtryon/ui/catalog/eyepower/EyePowerFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/oic/virtualtryon/ui/catalog/eyepower/EyePowerFragment.kt b/app/src/main/java/com/oic/virtualtryon/ui/catalog/eyepower/EyePowerFragment.kt
+--- a/app/src/main/java/com/oic/virtualtryon/ui/catalog/eyepower/EyePowerFragment.kt	(revision 6e5b034e4f491d6444027228a95e5e4038fc64d2)
++++ b/app/src/main/java/com/oic/virtualtryon/ui/catalog/eyepower/EyePowerFragment.kt	(date 1660021218048)
+@@ -1,6 +1,7 @@
+ package com.bitflyer.github.ui.catalog.eyepower
+ 
+ import android.os.Bundle
++import android.os.Parcelable
+ import android.view.View
+ import androidx.core.content.ContextCompat
+ import androidx.lifecycle.ViewModelProvider
+@@ -8,6 +9,7 @@
+ import com.bitflyer.github.BR
+ import com.bitflyer.github.R
+ import com.bitflyer.github.app.AppConstants
++import com.bitflyer.github.data.models.response.inhouse.InhouseResponse
+ import com.bitflyer.github.data.tab.TabAdapter
+ import com.bitflyer.github.data.tab.TabsModel
+ import com.bitflyer.github.data.viewmodels.eyepower.EyePowerViewModel
+@@ -33,7 +35,7 @@
+     private var sellprice: String? = null
+     private var lenscoatingcategory: String? = null
+     private var type: String? = null
+-    private var featuresItem = ArrayList<String>()
++    private var featuresItem: ArrayList<InhouseResponse> = ArrayList()
+ 
+     override fun getLayoutId(): Int {
+         return R.layout.fragment_eye_power
+@@ -58,30 +60,54 @@
+             sellprice = arguments?.getString(AppConstants.SELLPRICE)!!
+             lenscoatingcategory = arguments?.getString(AppConstants.LENSCOATINGCATEGORY)!!
+             type = arguments?.getString(AppConstants.TYPE)!!
+-            featuresItem = arguments?.getStringArrayList(AppConstants.TYPEOFLIST)!!
++            featuresItem =  arguments?.getParcelableArrayList(AppConstants.TYPEOFLIST)!!
+         }
+ 
+         if (type.equals("1", true)) {
+             fragmentEyePowerBinding.include3.cdCommon.visibility = View.VISIBLE
+             fragmentEyePowerBinding.constraintLayout.visibility = View.VISIBLE
+             for (i in featuresItem.indices) {
+-                if (featuresItem[i].equals("WATER REPELLENT", true)) {
++                if (featuresItem[i].type.equals("WATER REPELLENT", true)) {
+                     UiUtils.gone(fragmentEyePowerBinding.imageView50, true)
+                     Water()
+-                } else if (featuresItem[i].equals("DUST REPELLENT", true)) {
++                    if (featuresItem[i].isSelected) {
++                        fragmentEyePowerBinding.imageView46.isChecked = true
++                    } else {
++                        fragmentEyePowerBinding.imageView46.isChecked = false
++                    }
++                } else if (featuresItem[i].type.equals("DUST REPELLENT", true)) {
+                     UiUtils.gone(fragmentEyePowerBinding.imageView49, true)
+                     Liquid()
+-                } else if (featuresItem[i].equals("UV-400 PRODUCTION", true)) {
++                    if (featuresItem[i].isSelected) {
++                        fragmentEyePowerBinding.imageView49.isChecked = true
++                    } else {
++                        fragmentEyePowerBinding.imageView49.isChecked = false
++                    }
++                } else if (featuresItem[i].type.equals("UV-400 PRODUCTION", true)) {
+                     UiUtils.gone(fragmentEyePowerBinding.imageView48, true)
+                     Fingerprint()
+-                } else if (featuresItem[i].equals("ANTI GLARE", true)) {
++                    if (featuresItem[i].isSelected) {
++                        fragmentEyePowerBinding.imageView48.isChecked = true
++                    } else {
++                        fragmentEyePowerBinding.imageView48.isChecked = false
++                    }
++                } else if (featuresItem[i].type.equals("ANTI GLARE", true)) {
+                     UiUtils.gone(fragmentEyePowerBinding.imageView47, true)
+                     Cloud()
+-                } else if (featuresItem[i].equals("SCRATCH RESISTANCE", true)) {
++                    if (featuresItem[i].isSelected) {
++                        fragmentEyePowerBinding.imageView47.isChecked = true
++                    } else {
++                        fragmentEyePowerBinding.imageView47.isChecked = false
++                    }
++                } else if (featuresItem[i].type.equals("SCRATCH RESISTANCE", true)) {
+                     UiUtils.gone(fragmentEyePowerBinding.imageView46, true)
+                     Diamond()
++                    if (featuresItem[i].isSelected) {
++                        fragmentEyePowerBinding.imageView46.isChecked = true
++                    } else {
++                        fragmentEyePowerBinding.imageView46.isChecked = false
++                    }
+                 }
+-
+             }
+ 
+ 
+Index: app/src/main/java/com/oic/virtualtryon/ui/catalog/branded/BrandedAdapter.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/oic/virtualtryon/ui/catalog/branded/BrandedAdapter.kt b/app/src/main/java/com/oic/virtualtryon/ui/catalog/branded/BrandedAdapter.kt
+--- a/app/src/main/java/com/oic/virtualtryon/ui/catalog/branded/BrandedAdapter.kt	(revision 6e5b034e4f491d6444027228a95e5e4038fc64d2)
++++ b/app/src/main/java/com/oic/virtualtryon/ui/catalog/branded/BrandedAdapter.kt	(date 1660066277775)
+@@ -43,6 +43,7 @@
+         val binding: ItemBrandedBinding = holder.getBinding()
+         if (position != brandedBrandList.size - 1) {
+             binding.cardView21.visibility = View.VISIBLE
++            binding.cdWrite.visibility = View.GONE
+             binding.textView71.text = "₹ " + user!!.sellPrice.toString()
+             binding.textView70.text = user.lensCoating.toString()
+ 
+@@ -56,6 +57,7 @@
+             inHouseBaseBrandAdapter!!.setInHouseBaseBrandList(user.features!!)
+         } else {
+             binding.cdWrite.visibility = View.VISIBLE
++            binding.cardView21.visibility = View.GONE
+         }
+ 
+     }
+Index: app/src/main/java/com/oic/virtualtryon/ui/catalog/branded/BrandedFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/oic/virtualtryon/ui/catalog/branded/BrandedFragment.kt b/app/src/main/java/com/oic/virtualtryon/ui/catalog/branded/BrandedFragment.kt
+--- a/app/src/main/java/com/oic/virtualtryon/ui/catalog/branded/BrandedFragment.kt	(revision 6e5b034e4f491d6444027228a95e5e4038fc64d2)
++++ b/app/src/main/java/com/oic/virtualtryon/ui/catalog/branded/BrandedFragment.kt	(date 1660066614470)
+@@ -10,6 +10,7 @@
+ import com.bitflyer.github.BR
+ import com.bitflyer.github.R
+ import com.bitflyer.github.app.AppConstants
++import com.bitflyer.github.data.models.response.inhouse.InhouseResponse
+ import com.bitflyer.github.data.models.response.lenscatalog.DataItem
+ import com.bitflyer.github.data.models.response.lenscatalog.FeaturesItem
+ import com.bitflyer.github.data.models.response.lenscatalog.LensCatalogResponse
+@@ -35,7 +36,7 @@
+     private var brandedAdapter: BrandedAdapter? = null
+     private var id:String?=null
+     private val bundle = Bundle()
+-    private val featuresItem= ArrayList<String>()
++    private val featuresItem= ArrayList<InhouseResponse>()
+ 
+ 
+     override fun getLayoutId(): Int {
+@@ -62,9 +63,7 @@
+ 
+         brandedAdapter = BrandedAdapter(requireActivity(), this)
+         fragmentBrandedBinding.brandedAdapter = brandedAdapter
+-
+-
+-
++        fragmentBrandedBinding.rvBrands.setHasFixedSize(true)
+ 
+         /*Show Error Toast*/
+         brandedViewModel.errorObservable.observe(
+@@ -112,7 +111,7 @@
+         bundle.putString(AppConstants.SELLPRICE, "₹ " + dataItem.sellPrice.toString())
+         bundle.putString(AppConstants.LENSCOATINGCATEGORY, dataItem.lensCoatingCategory.toString())
+         bundle.putString(AppConstants.TYPE, AppConstants.INHOUSETYPE)
+-        bundle.putStringArrayList(AppConstants.TYPEOFLIST,featuresItem)
++        bundle.putParcelableArrayList(AppConstants.TYPEOFLIST,featuresItem)
+         fragmentBrandedBinding.constraintLayout5.visibility=View.VISIBLE
+         fragmentBrandedBinding.textView65.text=dataItem.lensCoating.toString()
+         fragmentBrandedBinding.textView67.text=dataItem.sellPrice.toString()
+@@ -121,7 +120,7 @@
+         featuresItem.clear()
+         for (i in inHouseBrandList!!.indices){
+             if(inHouseBrandList[i]!!.isFeatureAvailable == true){
+-                featuresItem.add(inHouseBrandList[i]!!.featureName!!)
++                featuresItem.add(InhouseResponse(inHouseBrandList[i]!!.featureName!!,true))
+ 
+             }
+         }
+Index: app/src/main/java/com/oic/virtualtryon/ui/catalog/inhousebrand/InHouseBrandFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/oic/virtualtryon/ui/catalog/inhousebrand/InHouseBrandFragment.kt b/app/src/main/java/com/oic/virtualtryon/ui/catalog/inhousebrand/InHouseBrandFragment.kt
+--- a/app/src/main/java/com/oic/virtualtryon/ui/catalog/inhousebrand/InHouseBrandFragment.kt	(revision 6e5b034e4f491d6444027228a95e5e4038fc64d2)
++++ b/app/src/main/java/com/oic/virtualtryon/ui/catalog/inhousebrand/InHouseBrandFragment.kt	(date 1660021135913)
+@@ -10,6 +10,7 @@
+ import com.bitflyer.github.BR
+ import com.bitflyer.github.R
+ import com.bitflyer.github.app.AppConstants
++import com.bitflyer.github.data.models.response.inhouse.InhouseResponse
+ import com.bitflyer.github.data.models.response.lenscatalog.DataItem
+ import com.bitflyer.github.data.models.response.lenscatalog.FeaturesItem
+ import com.bitflyer.github.data.models.response.lenscatalog.LensCatalogResponse
+@@ -36,8 +37,7 @@
+     private var inHouseBrandAdapter: InHouseBrandAdapter? = null
+     private val bundle = Bundle()
+     private var id:String?=null
+-    private val featuresItem= ArrayList<String>()
+-
++    private val featuresItem= ArrayList<InhouseResponse>()
+     override fun getLayoutId(): Int {
+         return R.layout.fragment_inhousebrand
+     }
+@@ -112,15 +112,15 @@
+         bundle.putString(AppConstants.SELLPRICE, "₹ " + dataItem.sellPrice.toString())
+         bundle.putString(AppConstants.LENSCOATINGCATEGORY, dataItem.lensCoatingCategory.toString())
+         bundle.putString(AppConstants.TYPE, AppConstants.INHOUSETYPE)
+-        bundle.putStringArrayList(AppConstants.TYPEOFLIST,featuresItem)
++        bundle.putParcelableArrayList(AppConstants.TYPEOFLIST,featuresItem)
+         fragmentInhousebrandBinding.constraintLayout4.visibility = View.VISIBLE
+         fragmentInhousebrandBinding.textView65.text = dataItem.lensCoating.toString()
+         fragmentInhousebrandBinding.textView67.text = "₹ " + dataItem.sellPrice.toString()
+         fragmentInhousebrandBinding.textView66.text = dataItem.lensCoatingCategory.toString()
+         featuresItem.clear()
+-        for (i in inHouseBrandList!!.indices){
+-                if(inHouseBrandList[i]!!.isFeatureAvailable == true){
+-                    featuresItem.add(inHouseBrandList[i]!!.featureName!!)
++        for (i in inHouseBrandList!!.indices) {
++            if (inHouseBrandList[i]!!.isFeatureAvailable == true) {
++                featuresItem.add(InhouseResponse(inHouseBrandList[i]!!.featureName!!,true))
+ 
+             }
+         }

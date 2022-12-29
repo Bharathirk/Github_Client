@@ -1,0 +1,185 @@
+Index: app/src/main/res/layout/fragment_branded.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_branded.xml b/app/src/main/res/layout/fragment_branded.xml
+--- a/app/src/main/res/layout/fragment_branded.xml	(revision 360d6f5d5d257c255ac5eca77b3e29672971e955)
++++ b/app/src/main/res/layout/fragment_branded.xml	(date 1660906256111)
+@@ -42,6 +42,17 @@
+             app:spanCount="2"
+             tools:listitem="@layout/item_branded" />
+ 
++        <include
++            android:id="@+id/com_branded"
++            layout="@layout/common_no_data_found"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:visibility="gone"
++            app:layout_constraintBottom_toTopOf="@+id/constraintLayout5"
++            app:layout_constraintEnd_toEndOf="parent"
++            app:layout_constraintStart_toStartOf="parent"
++            app:layout_constraintTop_toTopOf="parent"/>
++
+         <androidx.constraintlayout.widget.ConstraintLayout
+             android:id="@+id/constraintLayout5"
+             android:layout_width="0dp"
+Index: app/src/main/java/com/oic/virtualtryon/ui/frame/catalog/CatalogFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/oic/virtualtryon/ui/frame/catalog/CatalogFragment.kt b/app/src/main/java/com/oic/virtualtryon/ui/frame/catalog/CatalogFragment.kt
+--- a/app/src/main/java/com/oic/virtualtryon/ui/frame/catalog/CatalogFragment.kt	(revision 360d6f5d5d257c255ac5eca77b3e29672971e955)
++++ b/app/src/main/java/com/oic/virtualtryon/ui/frame/catalog/CatalogFragment.kt	(date 1660906698052)
+@@ -128,7 +128,14 @@
+             hideLoading()
+             appResponse.let { frameResponse ->
+                 frameResponse.data.let { dataItem ->
+-                    catalogAdapter!!.setCatalogList(dataItem!!)
++                    if (dataItem!=null && dataItem.size>0){
++                        fragmentCatalogBinding.rvCatalog.visibility=View.VISIBLE
++                        fragmentCatalogBinding.comFilter.textView84.visibility=View.GONE
++                        catalogAdapter!!.setCatalogList(dataItem)
++                    }else{
++                        fragmentCatalogBinding.rvCatalog.visibility=View.GONE
++                        fragmentCatalogBinding.comFilter.textView84.visibility=View.VISIBLE
++                    }
+                 }
+             }
+         }
+@@ -151,8 +158,13 @@
+         catalogViewModel.findCatalogPageObservable.observe(requireActivity()) { appResponse ->
+             appResponse.let { lensCatalogResponse ->
+                 lensCatalogResponse.data.let { dataItem ->
+-                    if (dataItem != null) {
++                    if (dataItem != null && dataItem.size>0) {
++                        fragmentCatalogBinding.rvCatalogFilter.visibility=View.VISIBLE
++                        fragmentCatalogBinding.comFilter.textView84.visibility=View.GONE
+                         catalogFilterAdapter!!.setCatalogList(dataItem)
++                    }else{
++                        fragmentCatalogBinding.rvCatalogFilter.visibility=View.GONE
++                        fragmentCatalogBinding.comFilter.textView84.visibility=View.VISIBLE
+                     }
+                 }
+             }
+Index: app/src/main/java/com/oic/virtualtryon/ui/home/FrameShapeAdapter.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/oic/virtualtryon/ui/home/FrameShapeAdapter.kt b/app/src/main/java/com/oic/virtualtryon/ui/home/FrameShapeAdapter.kt
+--- a/app/src/main/java/com/oic/virtualtryon/ui/home/FrameShapeAdapter.kt	(revision 360d6f5d5d257c255ac5eca77b3e29672971e955)
++++ b/app/src/main/java/com/oic/virtualtryon/ui/home/FrameShapeAdapter.kt	(date 1660906959714)
+@@ -35,10 +35,8 @@
+ 
+     override fun onBindViewHolder(holder: FrameViewHolder, position: Int) {
+         val user = frameShapeList[position]
+-        Log.d("2TAGUSER", "onBindViewHolder: $user")
+         val binding: ItemFrameShapeBinding = holder.getBinding()
+         binding.dataItems = user
+-        holder.bind(position)
+     }
+ 
+     override fun getItemCount(): Int {
+@@ -58,13 +56,6 @@
+             return binding!!
+         }
+ 
+-        fun bind(position: Int){
+-            val user = frameShapeList[position]
+-            if (user != null) {
+-                Glide.with(context).load(user.shapeLogo).into(itemView.findViewById(R.id.imageView31))
+-            }
+-        }
+-
+         override fun onClick(v: View?) {
+             frameClickManager.onItemFramClick(frameShapeList[absoluteAdapterPosition]?.id.toString())
+ 
+Index: app/src/main/java/com/oic/virtualtryon/ui/catalog/branded/BrandedFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/oic/virtualtryon/ui/catalog/branded/BrandedFragment.kt b/app/src/main/java/com/oic/virtualtryon/ui/catalog/branded/BrandedFragment.kt
+--- a/app/src/main/java/com/oic/virtualtryon/ui/catalog/branded/BrandedFragment.kt	(revision 360d6f5d5d257c255ac5eca77b3e29672971e955)
++++ b/app/src/main/java/com/oic/virtualtryon/ui/catalog/branded/BrandedFragment.kt	(date 1660906698038)
+@@ -77,8 +77,13 @@
+         brandedViewModel.brandedResponseObservable.observe(requireActivity()) { appResponse ->
+             appResponse.let { lensCatalogResponse ->
+                 lensCatalogResponse.data.let { dataItem ->
+-                    if (dataItem!=null){
++                    if (dataItem!=null && dataItem.size>0){
++                        fragmentBrandedBinding.rvBrands.visibility=View.VISIBLE
++                        fragmentBrandedBinding.comBranded.textView84.visibility=View.GONE
+                         brandedAdapter!!.setBrandList(dataItem)
++                    }else{
++                        fragmentBrandedBinding.rvBrands.visibility=View.GONE
++                        fragmentBrandedBinding.comBranded.textView84.visibility=View.VISIBLE
+                     }
+                 }
+             }
+Index: app/src/main/res/layout/fragment_catalog.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_catalog.xml b/app/src/main/res/layout/fragment_catalog.xml
+--- a/app/src/main/res/layout/fragment_catalog.xml	(revision 360d6f5d5d257c255ac5eca77b3e29672971e955)
++++ b/app/src/main/res/layout/fragment_catalog.xml	(date 1660906698029)
+@@ -64,5 +64,15 @@
+             app:setAdapter="@{catalogFilterAdapter}"
+             app:spanCount="3"
+             tools:listitem="@layout/item_catalog_filter" />
++
++        <include
++            android:id="@+id/com_filter"
++            layout="@layout/common_no_data_found"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            app:layout_constraintBottom_toBottomOf="parent"
++            app:layout_constraintEnd_toEndOf="parent"
++            app:layout_constraintStart_toStartOf="parent"
++            app:layout_constraintTop_toTopOf="parent"/>
+     </androidx.constraintlayout.widget.ConstraintLayout>
+ </layout>
+\ No newline at end of file
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
+--- a/app/src/main/res/values/strings.xml	(revision 360d6f5d5d257c255ac5eca77b3e29672971e955)
++++ b/app/src/main/res/values/strings.xml	(date 1660906256097)
+@@ -134,4 +134,5 @@
+     <string name="half">half rim</string>
+     <string name="rimless">rimless</string>
+     <string name="ciency">We develop and manufacture highly advanced medical devices, designed for the effective management of visual health. Our technology solutions are built for affordability and accessibility of both urban and rural patients. Today, Forus Health is transforming into a digital healthcare solutions business by also providing integrated and intelligent technology modules, such as cloud-based digital healthcare platforms, to augment the efficiency of our medical systems.</string>
++    <string name="no_data_found_message">No Data found</string>
+ </resources>
+\ No newline at end of file
+Index: app/src/main/res/layout/item_frame_shape.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/item_frame_shape.xml b/app/src/main/res/layout/item_frame_shape.xml
+--- a/app/src/main/res/layout/item_frame_shape.xml	(revision 360d6f5d5d257c255ac5eca77b3e29672971e955)
++++ b/app/src/main/res/layout/item_frame_shape.xml	(date 1660906959702)
+@@ -37,6 +37,7 @@
+                     android:layout_height="16dp"
+                     android:layout_marginStart="8dp"
+                     android:layout_marginEnd="8dp"
++                    app:imageUrl="@{dataItems.shapeLogo}"
+                     app:layout_constraintBottom_toBottomOf="parent"
+                     app:layout_constraintEnd_toStartOf="@+id/textView50"
+                     app:layout_constraintStart_toStartOf="parent"
+@@ -54,6 +55,7 @@
+                     android:textColor="@color/slate_black"
+                     android:textSize="11sp"
+                     android:textStyle="normal"
++                    android:text="@{dataItems.shapeName.toString()}"
+                     app:layout_constraintBottom_toBottomOf="parent"
+                     app:layout_constraintEnd_toEndOf="parent"
+                     app:layout_constraintStart_toEndOf="@+id/imageView31"

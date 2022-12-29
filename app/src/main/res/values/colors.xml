@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="zima_blue">#5dbcda</color>
+
+    <color name="login_back_ground">#20bedb</color>
+    <color name="text_hint">#9a9a9a</color>
+    <color name="text_line_back">#a9a9a9</color>
+    <color name="app_background">#f9f9f9</color>
+    <color name="slate_grey">#56565b</color>
+    <color name="slate_black">#242424</color>
+    <color name="red">#ff4e4e</color>
+    <color name="red_coral">#ff4b4b</color>
+    <color name="view_line">#bbbbbb</color>
+    <color name="blue">#43008E</color>
+    <color name="textcolorgreen">#00FAFF</color>
+    <color name="common_view_line">#e0e0e0</color>
+    <color name="cricle_grey">#b0b0b0</color>
+    <color name="cricle_premium">#ffa135</color>
+
+</resources>

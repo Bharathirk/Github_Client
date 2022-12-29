@@ -1,0 +1,65 @@
+[
+  {
+    "name" : "Full Rim",
+    "parts": [
+      {
+        "name": "Oval",
+        "model_path": "models/fullrim/oval/Google_E13728 -oval.obj",
+        "texture_path": "models/fullrim/oval/fullri_oval.png",
+        "thumb": "models/fullrim/oval/E13729 C2_Render.jpg"
+      },
+      {
+        "name": "Rectangle",
+        "model_path": "models/fullrim/rectangle/Google_LA E13775-C2_rect.obj",
+        "texture_path": "models/fullrim/rectangle/fullrim_rextang.png",
+        "thumb": "models/fullrim/rectangle/E13775-C1_Render.jpg"
+      },
+      {
+        "name": "Round",
+        "model_path": "models/fullrim/round/E137980.obj",
+        "texture_path": "models/fullrim/round/fullrim_round.png",
+        "thumb": "models/fullrim/round/E13071-C1_Render.jpg"
+      }
+    ]
+  },
+  {
+    "name": "Half Rim",
+    "parts": [
+      {
+        "name": "Aviator",
+        "model_path": "models/half_rim/aviator/E13586-C2_.obj",
+        "texture_path": "models/half_rim/aviator/halfrim.png",
+        "thumb": "models/half_rim/aviator/E13586-C2_Render.jpg"
+      },
+      {
+        "name": "Cat Eye",
+        "model_path": "models/half_rim/cateye/E13393 - C3.obj",
+        "texture_path": "models/half_rim/cateye/cteye_halrim.png",
+        "thumb": "models/half_rim/cateye/E13393 - C3_Render.jpg"
+      },
+      {
+        "name": "Oval",
+        "model_path": "models/half_rim/oval/E12065-C1.obj",
+        "texture_path": "models/half_rim/oval/halfrim_oval.png",
+        "thumb": "models/half_rim/oval/E12065-C1_Render.jpg"
+      }
+    ]
+  },
+  {
+    "name": "Rim Less",
+    "parts": [
+      {
+        "name": "Aviator",
+        "model_path": "models/rimless/aviator/E12341-C2.obj",
+        "texture_path": "models/rimless/aviator/rimless_aviator.png",
+        "thumb": "models/rimless/aviator/E12341-C1_Render.jpg"
+      },
+      {
+        "name": "Oval",
+        "model_path": "models/rimless/oval/E13673-C1.obj",
+        "texture_path": "models/rimless/oval/rimless_ova.png",
+        "thumb": "models/rimless/oval/thumbnail.jpg"
+      }
+    ]
+  }
+]

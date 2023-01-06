@@ -5,12 +5,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bitflyer.github.BR
 import com.bitflyer.github.R
-import com.bitflyer.github.data.models.response.FollowerResponseItem
-import com.bitflyer.github.data.viewmodels.follower.FollowerViewModel
+import com.bitflyer.github.data.models.response.UserResponseItem
+import com.bitflyer.github.data.viewmodels.users.UserViewModel
 import com.bitflyer.github.databinding.ActivityTestBinding
 import com.bitflyer.github.ui.base.BaseActivity
 import com.bitflyer.github.ui.base.BaseViewModel
-import com.bitflyer.github.ui.followers.UserNavigator
+import com.bitflyer.github.ui.users.UserNavigator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,14 +18,14 @@ class UserDetailActivity : BaseActivity<ActivityTestBinding, UserNavigator>(),
     UserNavigator {
 
     private var activityTestBinding: ActivityTestBinding? = null
-    private lateinit var followerViewModel: FollowerViewModel
+    private lateinit var followerViewModel: UserViewModel
 
     override fun getLayoutId(): Int {
         return R.layout.activity_test
     }
 
     override fun getViewModel(): BaseViewModel<UserNavigator> {
-        followerViewModel = ViewModelProvider(this).get(FollowerViewModel::class.java)
+        followerViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         return followerViewModel
     }
 
@@ -39,7 +39,7 @@ class UserDetailActivity : BaseActivity<ActivityTestBinding, UserNavigator>(),
 
 
         if (intent.extras != null) {
-            var responseValue = intent.extras!!.get("detail") as FollowerResponseItem
+            var responseValue = intent.extras!!.get("detail") as UserResponseItem
             activityTestBinding = getViewDataBinding()
 //            showToast(responseValue.login!!)
             followerViewModel.getUserDetail(responseValue.url!!)

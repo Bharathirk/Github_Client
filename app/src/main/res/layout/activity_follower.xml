@@ -8,11 +8,11 @@
 
         <variable
             name="followerViewModel"
-            type="com.bitflyer.github.data.viewmodels.follower.FollowerViewModel" />
+            type="com.bitflyer.github.data.viewmodels.users.UserViewModel" />
 
         <variable
             name="UserAdapter"
-            type="com.bitflyer.github.ui.followers.UserAdapter" />
+            type="com.bitflyer.github.ui.users.UserAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

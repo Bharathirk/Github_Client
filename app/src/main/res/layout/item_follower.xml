@@ -7,7 +7,7 @@
 
         <variable
             name="dataItem"
-            type="com.bitflyer.github.data.models.response.FollowerResponseItem" />
+            type="com.bitflyer.github.data.models.response.UserResponseItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

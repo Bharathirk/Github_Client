@@ -10,7 +10,7 @@ import com.bitflyer.github.data.viewmodels.splash.SplashViewModel
 import com.bitflyer.github.databinding.ActivitySplashBinding
 import com.bitflyer.github.ui.base.BaseActivity
 import com.bitflyer.github.ui.base.BaseViewModel
-import com.bitflyer.github.ui.followers.UserActivity
+import com.bitflyer.github.ui.users.UserActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

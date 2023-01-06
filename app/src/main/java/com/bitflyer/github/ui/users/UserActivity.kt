@@ -1,4 +1,4 @@
-package com.bitflyer.github.ui.followers
+package com.bitflyer.github.ui.users
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bitflyer.github.BR
 import com.bitflyer.github.R
-import com.bitflyer.github.data.models.response.FollowerResponseItem
-import com.bitflyer.github.data.viewmodels.follower.FollowerViewModel
+import com.bitflyer.github.data.models.response.UserResponseItem
+import com.bitflyer.github.data.viewmodels.users.UserViewModel
 import com.bitflyer.github.databinding.ActivityFollowerBinding
 import com.bitflyer.github.ui.UserDetailActivity
 import com.bitflyer.github.ui.base.BaseActivity
@@ -20,8 +20,8 @@ class UserActivity : BaseActivity<ActivityFollowerBinding, UserNavigator>(),
     UserNavigator, UserAdapter.FollowerClickManager {
 
     private var activityFollowerBinding: ActivityFollowerBinding? = null
-    private lateinit var followerViewModel: FollowerViewModel
-    private var dataItemList = mutableListOf<FollowerResponseItem?>()
+    private lateinit var followerViewModel: UserViewModel
+    private var dataItemList = mutableListOf<UserResponseItem?>()
     private var lastUserId:Int = 0
     var isLastPage: Boolean = false
     var isLoading: Boolean = false
@@ -31,7 +31,7 @@ class UserActivity : BaseActivity<ActivityFollowerBinding, UserNavigator>(),
     }
 
     override fun getViewModel(): BaseViewModel<UserNavigator> {
-        followerViewModel = ViewModelProvider(this).get(FollowerViewModel::class.java)
+        followerViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         return followerViewModel
     }
 
@@ -99,7 +99,7 @@ class UserActivity : BaseActivity<ActivityFollowerBinding, UserNavigator>(),
 
     }
 
-    override fun onItemClick(followerItem: FollowerResponseItem) {
+    override fun onItemClick(followerItem: UserResponseItem) {
         var intent =Intent(this, UserDetailActivity::class.java)
         intent.putExtra("detail",followerItem)
         openActivity(intent, false)

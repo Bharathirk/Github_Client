@@ -1,4 +1,4 @@
-package com.bitflyer.github.ui.followers
+package com.bitflyer.github.ui.users
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,23 +8,23 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bitflyer.github.R
-import com.bitflyer.github.data.models.response.FollowerResponseItem
+import com.bitflyer.github.data.models.response.UserResponseItem
 import com.bitflyer.github.databinding.ItemFollowerBinding
 
 class UserAdapter(
     val context: Context,
     val followerClickManager: FollowerClickManager
 ) : RecyclerView.Adapter<UserAdapter.FollowerViewHolder>() {
-    private val dataItemList = mutableListOf<FollowerResponseItem?>()
+    private val dataItemList = mutableListOf<UserResponseItem?>()
 
-    fun setFollwerList(followerList: List<FollowerResponseItem?>) {
+    fun setFollwerList(followerList: List<UserResponseItem?>) {
         dataItemList.clear()
         dataItemList.addAll(followerList)
         notifyDataSetChanged()
     }
 
     interface FollowerClickManager {
-        fun onItemClick(followerItem: FollowerResponseItem)
+        fun onItemClick(followerItem: UserResponseItem)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FollowerViewHolder {

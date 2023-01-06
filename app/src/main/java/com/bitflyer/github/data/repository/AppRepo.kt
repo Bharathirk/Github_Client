@@ -1,7 +1,7 @@
 package com.bitflyer.github.data.repository
 
 import com.bitflyer.github.data.api.AppApi
-import com.bitflyer.github.data.models.response.FollowerResponseItem
+import com.bitflyer.github.data.models.response.UserResponseItem
 
 import com.bitflyer.github.data.models.response.userdetails.GithubUserDetails
 import kotlinx.coroutines.Dispatchers
@@ -15,13 +15,13 @@ class AppRepo @Inject constructor(private val appApi: AppApi) {
 
 
 
-    fun getUsers():Flow<Response<List<FollowerResponseItem>>> = flow {
-        val response = appApi.getUsers("TOKEN")
+    fun getUsers():Flow<Response<List<UserResponseItem>>> = flow {
+        val response = appApi.getUsers("Token")
         emit(response)
     }.flowOn(Dispatchers.IO)
 
-    fun getUsersPage(pos:Int):Flow<Response<List<FollowerResponseItem>>> = flow {
-        val response = appApi.getUsersPage("TOKEN",pos)
+    fun getUsersPage(pos:Int):Flow<Response<List<UserResponseItem>>> = flow {
+        val response = appApi.getUsersPage("Token",pos)
         emit(response)
     }.flowOn(Dispatchers.IO)
 

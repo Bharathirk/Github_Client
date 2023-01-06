@@ -3,7 +3,7 @@ package com.bitflyer.github.data.models.response
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-data class FollowerResponseItem(
+data class UserResponseItem(
 
 	@field:SerializedName("gists_url")
 	val gistsUrl: String? = null,

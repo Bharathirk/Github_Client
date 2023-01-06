@@ -1,13 +1,13 @@
-package com.bitflyer.github.data.viewmodels.follower
+package com.bitflyer.github.data.viewmodels.users
 
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.bitflyer.github.data.models.response.FollowerResponseItem
+import com.bitflyer.github.data.models.response.UserResponseItem
 import com.bitflyer.github.data.models.response.userdetails.GithubUserDetails
 
 import com.bitflyer.github.ui.base.BaseViewModel
-import com.bitflyer.github.ui.followers.UserNavigator
+import com.bitflyer.github.ui.users.UserNavigator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -15,15 +15,15 @@ import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
-class FollowerViewModel @Inject constructor() :
+class UserViewModel @Inject constructor() :
     BaseViewModel<UserNavigator>() {
 
 
     val errorObservable = MutableLiveData<String>()
 
-    val followerResonseObservable = MutableLiveData<List<FollowerResponseItem>>()
+    val followerResonseObservable = MutableLiveData<List<UserResponseItem>>()
 
-    val followerErrorResponseObservable = MutableLiveData<Response<List<FollowerResponseItem>>>()
+    val followerErrorResponseObservable = MutableLiveData<Response<List<UserResponseItem>>>()
 
     val followerDetailsResonseObservable = MutableLiveData<GithubUserDetails>()
     val followerDetailsErrorResponseObservable = MutableLiveData<Response<GithubUserDetails>>()
@@ -56,8 +56,8 @@ class FollowerViewModel @Inject constructor() :
                 appRepo.getUsersPage(pos).collect { response ->
                     loadingStatus.value = false
                     if (response.isSuccessful) {
-                        var latestList:ArrayList<FollowerResponseItem> = ArrayList<FollowerResponseItem>()
-                       latestList = followerResonseObservable.value as ArrayList<FollowerResponseItem>
+                        var latestList:ArrayList<UserResponseItem> = ArrayList<UserResponseItem>()
+                       latestList = followerResonseObservable.value as ArrayList<UserResponseItem>
                         latestList.addAll(response.body()!!)
                         followerResonseObservable.value = latestList
                     } else {
